@@ -40,23 +40,19 @@ def create_sudoku_image(matrix):
     """
     output_path = "./output/output.png"
     
-    # Create a blank white image
     img_size = 450
     cell_size = img_size // 9
     font_scale = 0.9
     thickness = 2
     font = cv2.FONT_HERSHEY_SIMPLEX
 
-    # Create a blank white image
     image = np.ones((img_size, img_size, 3), dtype=np.uint8) * 255
 
-    # Draw grid lines
     for i in range(10):
         line_thickness = 3 if i % 3 == 0 else 1
         cv2.line(image, (0, i * cell_size), (img_size, i * cell_size), (0, 0, 0), line_thickness)
         cv2.line(image, (i * cell_size, 0), (i * cell_size, img_size), (0, 0, 0), line_thickness)
 
-    # Fill in the numbers
     for row in range(9):
         for col in range(9):
             if matrix[row][col] != 0:
@@ -66,7 +62,6 @@ def create_sudoku_image(matrix):
                 text_y = row * cell_size + (cell_size + text_size[1]) // 2
                 cv2.putText(image, text, (text_x, text_y), font, font_scale, (0, 0, 0), thickness)
 
-    # Save the image
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     cv2.imwrite(output_path, image)
 
